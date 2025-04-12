@@ -1,14 +1,16 @@
 import { useState } from "react";
 import ImageLogin from "./assets/Mobile wireframe-cuate.svg";
+import Button from "./components/Button";
+import Header from "./components/header";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     // container
-    <main className="w-full h-svh flex">
+    <main className="w-full h-svh flex bg-gradient-to-br from-orange-300 via-yellow-300 to-pink-400">
       {/* Esquerda */}
-      <aside className=" bg-gradient-to-br from-orange-300 via-yellow-300 to-pink-400 w-[50%] h-svh flex flex-col items-center justify-center gap-2">
+      <aside className="w-[50%] h-svh flex flex-col items-center justify-center gap-2">
         <img
           className="max-w-[450px]"
           src={ImageLogin}
@@ -16,22 +18,17 @@ function App() {
         />
         <h1 className="text-white text-3xl font-bold">Secure Login Portal</h1>
         <p className="text-white text-center">
-          Acess your dachborad securely eith our protect login <br /> system.
+          Acess your dashborad securely eith our protect login <br /> system.
           Your data is encrypted and secure.
         </p>
       </aside>
       {/* Direita */}
-      <aside className="w-[50%] h-svh p-6 flex justify-center items-center">
+      <aside className="w-[50%] h-svh p-6 flex justify-center items-center rounded-l-4xl bg-white">
         <div className="w-full h-full flex flex-col justify-center items-center">
           {/* container do formulário */}
           <form className="flex flex-col justify-center items-center w-full max-w-md gap-3">
             {/* topo */}
-            <header className="text-center">
-              <h1 className="text-3xl font-bold">Welcome Back</h1>
-              <p className="text-gray-500">
-                Enter yor details to sign in to your account
-              </p>
-            </header>
+            <Header />
             {/* meio */}
             <main className="w-full">
               <label
@@ -86,7 +83,7 @@ function App() {
                 />
               </div>
               {/* botão */}
-              <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 w-full mt-5">Sign Up</button>
+              <Button />
             </main>
             {/* fim */}
           </form>
