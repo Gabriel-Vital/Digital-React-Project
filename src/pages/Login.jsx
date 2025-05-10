@@ -3,8 +3,14 @@ import Button from "../components/formulario/Button";
 import Header from "../components/header";
 import User from "../components/formulario/User"
 import Password from "../components/formulario/Password";
+import { useNavigate } from "react-router-dom";
+import ModalNewTransaction from "../components/ModalNewTransaction/ModalNewTransaction";
 
 function LoginPage() {
+  let navigate = useNavigate()
+  function handleSubmit() {
+    navigate("/transactions");
+  }
   return (
     // container
     <main className="w-full h-svh flex bg-gradient-to-br from-orange-300 via-yellow-300 to-pink-400">
@@ -33,12 +39,13 @@ function LoginPage() {
               <User />
               <Password />
               {/* botão */}
-              <Button />
+              <Button onClick={handleSubmit}/>
             </main>
             {/* fim */}
           </form>
         </div>
       </aside>
+      <ModalNewTransaction />
     </main>
   );
 }
