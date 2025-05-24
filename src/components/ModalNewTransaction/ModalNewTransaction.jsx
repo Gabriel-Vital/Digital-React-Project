@@ -9,6 +9,7 @@ import { ArrowBendLeftUp, ArrowBendRightDown } from "phosphor-react";
 import ButtonModal from "./componentsModal/ButtonModal";
 import { useState } from "react";
 import axios from "axios";
+import { format } from "date-fns";
 
 export default function ModalNewTransaction({ open, setOpen }) {
   const [title, setTitle] = useState("");
@@ -38,7 +39,7 @@ export default function ModalNewTransaction({ open, setOpen }) {
       price: Number(price),
       category,
       transactionType,
-      date: "17/05/2025"
+      date: format(new Date(), "dd/MM/yyyy")
     })
     setOpen(false)
   }
@@ -80,6 +81,7 @@ export default function ModalNewTransaction({ open, setOpen }) {
                     />
                     <div className="flex justify-between">
                       <ButtonModal
+                        transactionType={`${transactionType === "deposit" ? "bg-emerald-100 hover:bg-emerald-200" : "bg-gray-200 hover:bg-gray-300"}`}
                         icon={
                           <ArrowBendLeftUp
                             size={20}
@@ -90,6 +92,7 @@ export default function ModalNewTransaction({ open, setOpen }) {
                         onClick={() => {handleClickTransactionType("deposit")}}
                       />
                       <ButtonModal
+                        transactionType={`${transactionType === "withdraw" ? "bg-red-100 hover:bg-red-200" : "bg-gray-200 hover:bg-gray-300"}`}
                         icon={
                           <ArrowBendRightDown
                             size={20}

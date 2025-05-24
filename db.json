@@ -4,7 +4,7 @@
       "id": "1",
       "title": "Netflix",
       "price": 55.9,
-      "type": "withdraw",
+      "transactionType": "withdraw",
       "category": "entretenimento",
       "date": "17/05/2025"
     },
@@ -15,6 +15,14 @@
       "category": "salario",
       "transactionType": "deposit",
       "date": "17/05/2025"
+    },
+    {
+      "id": "6bb6",
+      "title": "curso",
+      "price": 2500,
+      "category": "investimento",
+      "transactionType": "withdraw",
+      "date": "24/05/2025"
     }
   ]
 }

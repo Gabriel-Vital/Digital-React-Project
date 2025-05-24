@@ -4,7 +4,6 @@ import Header from "../components/header";
 import User from "../components/formulario/User"
 import Password from "../components/formulario/Password";
 import { useNavigate } from "react-router-dom";
-import ModalNewTransaction from "../components/ModalNewTransaction/ModalNewTransaction";
 
 function LoginPage() {
   let navigate = useNavigate()

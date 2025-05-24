@@ -1,11 +1,11 @@
-import { ArrowBendLeftUp } from "phosphor-react";
-
 const Cardtransaction = ({
   title,
   background,
   textColor = "text-black",
   icon,
   iconColor,
+  amount = 0,
+  valueColor,
 }) => {
   return (
     <>
@@ -16,7 +16,12 @@ const Cardtransaction = ({
           <span className={`${textColor}`}>{title}</span>
           <div className={`${iconColor} font-bold`}>{icon}</div>
         </div>
-        <strong className="text-3xl font-medium mt-1">R$ 0,00</strong>
+        <strong className={`text-3xl font-medium mt-1 ${valueColor}`}>
+          {amount.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </strong>
       </div>
     </>
   );
