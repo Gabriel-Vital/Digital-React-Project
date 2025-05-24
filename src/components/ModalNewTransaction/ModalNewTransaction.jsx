@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -8,9 +7,41 @@ import {
 import Input from "./componentsModal/InputModal";
 import { ArrowBendLeftUp, ArrowBendRightDown } from "phosphor-react";
 import ButtonModal from "./componentsModal/ButtonModal";
+import { useState } from "react";
+import axios from "axios";
 
-export default function ModalNewTransaction() {
-  const [open, setOpen] = useState(true);
+export default function ModalNewTransaction({ open, setOpen }) {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState(0);
+  const [category, setCategory] = useState("");
+  const [transactionType, setTransactionType] = useState("deposit")
+
+  function handleChangeTitle(ev) {
+    setTitle(ev);
+  }
+
+  function handleChangePrice(ev) {
+    setPrice(ev);
+  }
+
+  function handleChangeCategory(ev) {
+    setCategory(ev);
+  }
+
+  function handleClickTransactionType(type) {
+    setTransactionType(type)
+  }
+
+  async function handleNewTransaction() {
+    await axios.post("http://localhost:3000/transactions", {
+      title,
+      price: Number(price),
+      category,
+      transactionType,
+      date: "17/05/2025"
+    })
+    setOpen(false)
+  }
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -35,8 +66,18 @@ export default function ModalNewTransaction() {
                     Cadastrar transação
                   </DialogTitle>
                   <div className="mt-2 w-full space-y-5">
-                    <Input placeholder="Titulo" />
-                    <Input placeholder="Preço" />
+                    <Input
+                      placeholder="Titulo"
+                      onChange={(ev) => {
+                        handleChangeTitle(ev.target.value);
+                      }}
+                    />
+                    <Input
+                      placeholder="Preço"
+                      onChange={(ev) => {
+                        handleChangePrice(ev.target.value);
+                      }}
+                    />
                     <div className="flex justify-between">
                       <ButtonModal
                         icon={
@@ -46,6 +87,7 @@ export default function ModalNewTransaction() {
                           />
                         }
                         title="Entrada"
+                        onClick={() => {handleClickTransactionType("deposit")}}
                       />
                       <ButtonModal
                         icon={
@@ -55,14 +97,20 @@ export default function ModalNewTransaction() {
                           />
                         }
                         title="Saida"
+                        onClick={() => {handleClickTransactionType("withdraw")}}
                       />
                     </div>
-                    <Input placeholder="Categoria" />
+                    <Input
+                      placeholder="Categoria"
+                      onChange={(ev) => {
+                        handleChangeCategory(ev.target.value);
+                      }}
+                    />
                   </div>
                   <div className="bg-white w-full flex items-center justify-center sm:flex sm:flex-row-reverse mt-5">
                     <button
                       type="button"
-                      onClick={() => setOpen(false)}
+                      onClick={handleNewTransaction}
                       className="w-full h-[50px] items-center justify-center rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-emerald-500 cursor-pointer"
                     >
                       Cadastrar

@@ -1,11 +1,29 @@
+import axios from "axios";
 import Cardtransaction from "../components/CardTransaction/Cardtransaction";
 import {
   ArrowBendLeftUp,
   ArrowBendRightDown,
   CurrencyDollarSimple,
 } from "phosphor-react";
+import { useEffect, useState } from "react";
+import ModalNewTransaction from "../components/ModalNewTransaction/ModalNewTransaction";
 
 const TransactionsPage = () => {
+  const [allTransactions, setAlltransactions] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  async function fetchTransactions() {
+    const transactions = await axios.get("http://localhost:3000/transactions");
+    setAlltransactions(transactions.data);
+  }
+
+  function handleOpenModal() {
+    setOpen(true);
+  }
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gray-100">
@@ -14,7 +32,10 @@ const TransactionsPage = () => {
             <h1 className="text-white text-xl md:text-2xl font-bold">
               digital money
             </h1>
-            <button className="bg-white/20 px-12 rounded py-2 hover:bg-white/30 text-white border-0">
+            <button
+              onClick={handleOpenModal}
+              className="bg-white/20 px-12 rounded py-2 hover:bg-white/30 text-white border-0 cursor-pointer"
+            >
               Nova transação
             </button>
           </div>
@@ -51,25 +72,25 @@ const TransactionsPage = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                <tr className="hover:bg-gray-50 bg-white">
-                  <td className="px-6 py-4">Desenvolvimento de website</td>
-                  <td className="px-6 py-4 text-green-500 font-medium">
-                    R$ 12.000,00
-                  </td>
-                  <td className="px-6 py-4">Desenvolvimento</td>
-                  <td className="px-6 py-4">12/10/2021</td>
-                </tr>
-                <tr className="hover:bg-gray-50 bg-white">
-                  <td className="px-6 py-4">Desenvolvimento de website</td>
-                  <td className="px-6 py-4 text-green-500 font-medium">
-                    R$ 12.000,00
-                  </td>
-                  <td className="px-6 py-4">Desenvolvimento</td>
-                  <td className="px-6 py-4">12/10/2021</td>
-                </tr>
+                {allTransactions.map((transactions, index) => {
+                  return (
+                    <tr className="hover:bg-gray-50 bg-white" key={index}>
+                      <td className="px-6 py-4">{transactions.title}</td>
+                      <td className="px-6 py-4 text-green-500 font-medium">
+                        {transactions.price.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </td>
+                      <td className="px-6 py-4">{transactions.category}</td>
+                      <td className="px-6 py-4">{transactions.date}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+          <ModalNewTransaction open={open} setOpen={setOpen} />
         </main>
       </div>
     </>

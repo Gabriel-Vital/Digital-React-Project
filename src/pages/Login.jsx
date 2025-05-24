@@ -45,7 +45,6 @@ function LoginPage() {
           </form>
         </div>
       </aside>
-      <ModalNewTransaction />
     </main>
   );
 }
