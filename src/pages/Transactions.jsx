@@ -8,6 +8,8 @@ import {
 import { useEffect, useState } from "react";
 import ModalNewTransaction from "../components/ModalNewTransaction/ModalNewTransaction";
 import { useNavigate } from "react-router-dom";
+import HeaderTransaction from "../components/transactionsComponents/HeaderTransaction";
+import { API_BASE_URL } from "../utils/constantes";
 
 const TransactionsPage = () => {
   const [allTransactions, setAlltransactions] = useState([]);
@@ -20,7 +22,7 @@ const TransactionsPage = () => {
   }
 
   async function fetchTransactions() {
-    const transactions = await axios.get("http://localhost:3000/transactions");
+    const transactions = await axios.get(`${API_BASE_URL}/transaction`);
     setAlltransactions(transactions.data);
   }
 
@@ -28,7 +30,7 @@ const TransactionsPage = () => {
   //   const transactionsDelete = await axios.delete("http://localhost:3000/transactions", id)
   //   console.log(transactionsDelete)
   //   return transactionsDelete
-    
+
   // }
 
   const depositResult = allTransactions.reduce((prev, current) => {
@@ -57,19 +59,7 @@ const TransactionsPage = () => {
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gray-100">
-        <header className="w-full bg-orange-400 py-6 pb-32 px-4 md:px-10">
-          <div className="container mx-auto flex justify-between items-center">
-            <h1 className="text-white text-xl md:text-2xl font-bold">
-              Digital Money
-            </h1>
-            <button
-              onClick={handleOpenModal}
-              className="bg-white/20 px-12 rounded py-2 hover:bg-white/30 text-white border-0 cursor-pointer"
-            >
-              Nova transação
-            </button>
-          </div>
-        </header>
+        <HeaderTransaction onClick={handleOpenModal} />
         <main className="flex-1 container mx-auto px-6 py-8 h-full">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 -mt-24">
             <Cardtransaction
@@ -110,7 +100,9 @@ const TransactionsPage = () => {
                 {allTransactions.map((transactions, index) => {
                   return (
                     <tr
-                      onClick={() => {handleEditTransaction(transactions.id)}}
+                      onClick={() => {
+                        handleEditTransaction(transactions.id);
+                      }}
                       className="hover:bg-gray-50 bg-white"
                       key={index}
                     >

@@ -23,6 +23,14 @@
       "category": "investimento",
       "transactionType": "withdraw",
       "date": "24/05/2025"
+    },
+    {
+      "id": "efd7",
+      "title": "sww",
+      "price": 123,
+      "category": "entretenimento",
+      "transactionType": "withdraw",
+      "date": "31/05/2025"
     }
   ]
 }
