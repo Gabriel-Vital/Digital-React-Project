@@ -1,6 +1,6 @@
 import ImageLogin from "../assets/Mobile wireframe-cuate.svg";
 import Button from "../components/formulario/Button";
-import Header from "../components/header";
+import Header from "../components/formulario/Header";
 import User from "../components/formulario/User"
 import Password from "../components/formulario/Password";
 import { useNavigate } from "react-router-dom";
