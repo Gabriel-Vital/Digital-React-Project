@@ -4,13 +4,11 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import Input from "./componentsModal/InputModal";
-import { ArrowBendLeftUp, ArrowBendRightDown } from "phosphor-react";
-import ButtonModal from "./componentsModal/ButtonModal";
 import { useState } from "react";
 import axios from "axios";
 import { format } from "date-fns";
 import FormTransaction from "./componentsModal/FormTransaction";
+import { API_BASE_URL } from "../../utils/constantes";
 
 export default function ModalNewTransaction({ open, setOpen }) {
   const [title, setTitle] = useState("");
@@ -35,7 +33,7 @@ export default function ModalNewTransaction({ open, setOpen }) {
   }
 
   async function handleNewTransaction() {
-    await axios.post("http://localhost:3000/transactions", {
+    await axios.post(`${API_BASE_URL}/transactions`, {
       title,
       price: Number(price),
       category,

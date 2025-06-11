@@ -1,36 +1,3 @@
 {
-  "transactions": [
-    {
-      "id": "1",
-      "title": "Netflix",
-      "price": 55.9,
-      "transactionType": "withdraw",
-      "category": "entretenimento",
-      "date": "17/05/2025"
-    },
-    {
-      "id": "2ee7",
-      "title": "salario",
-      "price": 12000,
-      "category": "salario",
-      "transactionType": "deposit",
-      "date": "17/05/2025"
-    },
-    {
-      "id": "6bb6",
-      "title": "curso",
-      "price": 2500,
-      "category": "investimento",
-      "transactionType": "withdraw",
-      "date": "24/05/2025"
-    },
-    {
-      "id": "efd7",
-      "title": "sww",
-      "price": 123,
-      "category": "entretenimento",
-      "transactionType": "withdraw",
-      "date": "31/05/2025"
-    }
-  ]
+  "transactions": []
 }

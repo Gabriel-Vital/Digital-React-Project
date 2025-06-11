@@ -10,6 +10,8 @@ import ModalNewTransaction from "../components/ModalNewTransaction/ModalNewTrans
 import { useNavigate } from "react-router-dom";
 import HeaderTransaction from "../components/transactionsComponents/HeaderTransaction";
 import { API_BASE_URL } from "../utils/constantes";
+import { ToastContainer } from "react-toastify";
+
 
 const TransactionsPage = () => {
   const [allTransactions, setAlltransactions] = useState([]);
@@ -22,16 +24,14 @@ const TransactionsPage = () => {
   }
 
   async function fetchTransactions() {
-    const transactions = await axios.get(`${API_BASE_URL}/transaction`);
+    const transactions = await axios.get(`${API_BASE_URL}/transactions`);
     setAlltransactions(transactions.data);
   }
 
-  // async function deleteTransactions(id) {
-  //   const transactionsDelete = await axios.delete("http://localhost:3000/transactions", id)
-  //   console.log(transactionsDelete)
-  //   return transactionsDelete
-
-  // }
+  async function handleDeleteTransactions(id) {
+    await axios.delete(`${API_BASE_URL}/transactions/${id}`)
+    setAlltransactions(allTransactions.filter((allTransactions) => allTransactions.id !== id))
+  }
 
   const depositResult = allTransactions.reduce((prev, current) => {
     if (current.transactionType === "deposit") {
@@ -47,7 +47,7 @@ const TransactionsPage = () => {
     return prev;
   }, 0);
 
-  const total = depositResult - withdrawResult;
+  const total = depositResult + withdrawResult;
 
   function handleOpenModal() {
     setOpen(true);
@@ -82,7 +82,7 @@ const TransactionsPage = () => {
               amount={total}
               title="Total"
               background="bg-[#43e807]"
-              textColor={`${total > 0 ? "text-white" : "text-red-500"}`}
+              textColor={`${total < 0 ? "text-red-500" : "text-white"}`}
               icon={<CurrencyDollarSimple size={25} />}
             />
           </div>
@@ -121,16 +121,18 @@ const TransactionsPage = () => {
                       </td>
                       <td className="px-6 py-4">{transactions.category}</td>
                       <td className="px-6 py-4">{transactions.date}</td>
-                      <td className="px-6 py-4 mt-2 cursor-pointer w-[100px] h-[40px] flex items-center justify-center transition ease-in-out duration-150 rounded bg-yellow-100">
+                      <td onClick={() => {handleDeleteTransactions(transactions.id)}} className="px-6 py-4 mt-2 cursor-pointer w-[100px] h-[40px] flex items-center justify-center transition ease-in-out duration-150 rounded bg-yellow-100">
                         Delete
                       </td>
                     </tr>
                   );
                 })}
               </tbody>
+
             </table>
           </div>
           <ModalNewTransaction open={open} setOpen={setOpen} />
+          <ToastContainer />
         </main>
       </div>
     </>

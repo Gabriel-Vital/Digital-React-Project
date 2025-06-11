@@ -1,9 +1,12 @@
-import { DialogTitle } from "@headlessui/react";
+
 import { ArrowBendLeftUp, ArrowBendRightDown } from "phosphor-react";
 import Input from "./InputModal";
 import ButtonModal from "./ButtonModal";
+import { ToastContainer } from "react-toastify";
 
 const FormTransaction = ({
+  formTitle = "Cadastrar transação",
+  buttonTitle = "Cadastrar",
   handleChangeCategory,
   handleChangePrice,
   handleChangeTitle,
@@ -20,19 +23,19 @@ const FormTransaction = ({
         <div className="sm:flex sm:items-start">
           <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
             <h1 as="h1" className="text-2xl font-bold text-gray-900 mb-5">
-              Cadastrar transação
+              {formTitle}
             </h1>
             <div className="mt-2 w-full space-y-5">
               <Input
                 value={titleValue}
-                placeholder="a"
+                placeholder="titulo"
                 onChange={(ev) => {
                   handleChangeTitle(ev.target.value);
                 }}
               />
               <Input
                 value={priceValue}
-                placeholder="b"
+                placeholder="valor"
                 onChange={(ev) => {
                   handleChangePrice(ev.target.value);
                 }}
@@ -75,7 +78,7 @@ const FormTransaction = ({
               </div>
               <Input
                 value={categoryValue}
-                placeholder="c"
+                placeholder="categoria"
                 onChange={(ev) => {
                   handleChangeCategory(ev.target.value);
                 }}
@@ -87,8 +90,9 @@ const FormTransaction = ({
                 onClick={handleNewTransaction}
                 className="w-full h-[50px] items-center justify-center rounded-md bg-emerald-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-emerald-500 cursor-pointer"
               >
-                Cadastrar
+                {buttonTitle}
               </button>
+              <ToastContainer />
             </div>
           </div>
         </div>

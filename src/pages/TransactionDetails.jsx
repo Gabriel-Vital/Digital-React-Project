@@ -1,20 +1,24 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import HeaderTransaction from "../components/transactionsComponents/HeaderTransaction";
 import FormTransaction from "../components/ModalNewTransaction/componentsModal/FormTransaction";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/constantes";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { toast, ToastContainer } from "react-toastify";
 
-const TransactionDetails = ({setOpen}) => {
+const TransactionDetails = () => {
   // const { id } = useParams() <= da para fazer também e é melhor
   const params = useParams();
   const { id } = params;
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
   const [transactionType, setTransactionType] = useState("");
+
+  const notify = () => toast('Wow so easy !');
 
   function handleChangeTitle(ev) {
     setTitle(ev);
@@ -32,16 +36,6 @@ const TransactionDetails = ({setOpen}) => {
     setTransactionType(type);
   }
 
-  async function handleNewTransaction() {
-    await axios.post("http://localhost:3000/transactions", {
-      title,
-      price: Number(price),
-      category,
-      transactionType,
-      date: format(new Date(), "dd/MM/yyyy"),
-    });
-    setOpen(false);
-  }
 
   async function fetchTransactionId() {
     const transaction = await axios.get(`${API_BASE_URL}/transactions/${id}`);
@@ -54,11 +48,32 @@ const TransactionDetails = ({setOpen}) => {
   useEffect(() => {
     fetchTransactionId();
   }, []);
+
+  async function handleUpdateTransaction() {
+    try {
+      notify()
+      await axios.put(`${API_BASE_URL}/transactions/${id}`, {
+        title,
+        price: Number(price),
+        category,
+        transactionType,
+        date: format(new Date(), "dd/MM/yyyy"),
+      })
+      
+      navigate("/transactions")
+    } catch (error) {
+      console.error("Erro ao atualizar a transação", error);
+      
+    }
+  }
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       <HeaderTransaction />
       <main className="max-w-3xl mx-auto px-6 py-8 -mt-25 rounded w-[550px]">
         <FormTransaction
+          formTitle="Atualizar transação"
+          buttonTitle="Atualizar"
           titleValue={title}
           priceValue={price}
           categoryValue={category}
@@ -67,9 +82,11 @@ const TransactionDetails = ({setOpen}) => {
           handleChangeCategory={handleChangeCategory}
           handleClickTransactionType={handleClickTransactionType}
           transactionType={transactionType}
-          handleNewTransaction={() => {}}
+          handleNewTransaction={handleUpdateTransaction}
+ 
         />
       </main>
+      <ToastContainer />
     </div>
   );
 };
