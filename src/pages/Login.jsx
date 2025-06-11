@@ -17,7 +17,7 @@ function LoginPage() {
       <aside className="w-[50%] h-svh flex flex-col items-center justify-center gap-2">
         <img
           className="max-w-[450px]"
-          src="../assets/Mobile wireframe-cuate.svg"
+          src={ImageLogin}
           alt="Ilustrative login image"
         />
         <h1 className="text-white text-3xl font-bold">Secure Login Portal</h1>
