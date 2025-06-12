@@ -1,4 +1,4 @@
-function User() {
+const User = () => {
   return (
     <>
       <label
@@ -29,6 +29,6 @@ function User() {
       </div>
     </>
   );
-}
+};
 
-export default User
+export default User;

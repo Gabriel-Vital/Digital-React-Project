@@ -1,4 +1,4 @@
-function Button({ onClick }) {
+const Button = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -8,6 +8,6 @@ function Button({ onClick }) {
       Sign Up
     </button>
   );
-}
+};
 
 export default Button;
