@@ -11,13 +11,13 @@ import { TransactionProvider } from "./components/contexts/TransactionContext.js
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <TransactionProvider>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/transactions/:id" element={<TransactionDetails />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </TransactionProvider>
     <ToastContainer />
   </StrictMode>
