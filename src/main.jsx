@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")).render(
     <TransactionProvider>
       <HashRouter>
         <Routes>
-          <Route path="/Digital-React-Project" element={<LoginPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/transactions/:id" element={<TransactionDetails />} />
         </Routes>
