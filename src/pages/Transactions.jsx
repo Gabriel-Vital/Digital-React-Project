@@ -4,24 +4,25 @@ import {
   ArrowBendLeftUp,
   ArrowBendRightDown,
   CurrencyDollarSimple,
+  Trash,
 } from "phosphor-react";
 import { useEffect, useState } from "react";
 import ModalNewTransaction from "../components/ModalNewTransaction/ModalNewTransaction";
-import { useNavigate } from "react-router-dom";
 import HeaderTransaction from "../components/transactionsComponents/HeaderTransaction";
 import { API_BASE_URL } from "../utils/constantes";
 import { ToastContainer } from "react-toastify";
-
+import { useTransactionContext } from "../contexts/TransactionContext";
 
 const TransactionsPage = () => {
-  const [allTransactions, setAlltransactions] = useState([]);
+  const {
+    allTransactions,
+    setAlltransactions,
+    handleEditTransaction,
+    depositResult,
+    withdrawResult,
+    total,
+  } = useTransactionContext();
   const [open, setOpen] = useState(false);
-
-  const navigate = useNavigate();
-
-  function handleEditTransaction(id) {
-    navigate(`/transactions/${id}`);
-  }
 
   async function fetchTransactions() {
     const transactions = await axios.get(`${API_BASE_URL}/transactions`);
@@ -29,25 +30,11 @@ const TransactionsPage = () => {
   }
 
   async function handleDeleteTransactions(id) {
-    await axios.delete(`${API_BASE_URL}/transactions/${id}`)
-    setAlltransactions(allTransactions.filter((allTransactions) => allTransactions.id !== id))
+    await axios.delete(`${API_BASE_URL}/transactions/${id}`);
+    setAlltransactions(
+      allTransactions.filter((allTransactions) => allTransactions.id !== id)
+    );
   }
-
-  const depositResult = allTransactions.reduce((prev, current) => {
-    if (current.transactionType === "deposit") {
-      return prev + current.price;
-    }
-    return prev;
-  }, 0);
-
-  const withdrawResult = allTransactions.reduce((prev, current) => {
-    if (current.transactionType === "withdraw") {
-      return prev - current.price;
-    }
-    return prev;
-  }, 0);
-
-  const total = depositResult + withdrawResult;
 
   function handleOpenModal() {
     setOpen(true);
@@ -81,7 +68,7 @@ const TransactionsPage = () => {
             <Cardtransaction
               amount={total}
               title="Total"
-              background="bg-[#43e807]"
+              background={`${total < 0 ? "bg-black" : "bg-[#43e807]"}`}
               textColor={`${total < 0 ? "text-red-500" : "text-white"}`}
               icon={<CurrencyDollarSimple size={25} />}
             />
@@ -94,6 +81,7 @@ const TransactionsPage = () => {
                   <th className="px-6 py-3 pb-4 font-medium">Valor</th>
                   <th className="px-6 py-3 pb-4 font-medium">Categoria</th>
                   <th className="px-6 py-3 pb-4 font-medium">Data</th>
+                  <th className="px-6 py-3 pb-4 font-medium">Ações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -121,14 +109,19 @@ const TransactionsPage = () => {
                       </td>
                       <td className="px-6 py-4">{transactions.category}</td>
                       <td className="px-6 py-4">{transactions.date}</td>
-                      <td onClick={() => {handleDeleteTransactions(transactions.id)}} className="px-6 py-4 mt-2 cursor-pointer w-[100px] h-[40px] flex items-center justify-center transition ease-in-out duration-150 rounded bg-yellow-100">
-                        Delete
+                      <td
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteTransactions(transactions.id);
+                        }}
+                        className="px-1 py-1 mt-2 cursor-pointer w-[60px] h-[40px] flex items-center justify-center transition ease-in-out duration-150 rounded bg-yellow-200"
+                      >
+                        <Trash size={23} />
                       </td>
                     </tr>
                   );
                 })}
               </tbody>
-
             </table>
           </div>
           <ModalNewTransaction open={open} setOpen={setOpen} />

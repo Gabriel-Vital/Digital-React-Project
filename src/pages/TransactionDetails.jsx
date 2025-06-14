@@ -83,7 +83,6 @@ const TransactionDetails = () => {
           handleClickTransactionType={handleClickTransactionType}
           transactionType={transactionType}
           handleNewTransaction={handleUpdateTransaction}
- 
         />
       </main>
       <ToastContainer />
