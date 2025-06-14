@@ -1,17 +1,9 @@
 {
   "transactions": [
     {
-      "id": "f122",
-      "title": "aluguel",
-      "price": 400,
-      "category": "finanças",
-      "transactionType": "withdraw",
-      "date": "14/06/2025"
-    },
-    {
-      "id": "c3cb",
-      "title": "salário",
-      "price": 2000,
+      "id": "b4d5",
+      "title": "compras",
+      "price": 300,
       "category": "finanças",
       "transactionType": "deposit",
       "date": "14/06/2025"

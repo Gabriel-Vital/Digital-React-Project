@@ -12,6 +12,7 @@ import HeaderTransaction from "../components/transactionsComponents/HeaderTransa
 import { API_BASE_URL } from "../utils/constantes";
 import { ToastContainer } from "react-toastify";
 import { useTransactionContext } from "../contexts/TransactionContext";
+import { Button, IconButton } from "@material-tailwind/react";
 
 const TransactionsPage = () => {
   const {
@@ -21,19 +22,13 @@ const TransactionsPage = () => {
     depositResult,
     withdrawResult,
     total,
+    handleDeleteTransactions,
   } = useTransactionContext();
   const [open, setOpen] = useState(false);
 
   async function fetchTransactions() {
     const transactions = await axios.get(`${API_BASE_URL}/transactions`);
     setAlltransactions(transactions.data);
-  }
-
-  async function handleDeleteTransactions(id) {
-    await axios.delete(`${API_BASE_URL}/transactions/${id}`);
-    setAlltransactions(
-      allTransactions.filter((allTransactions) => allTransactions.id !== id)
-    );
   }
 
   function handleOpenModal() {
@@ -73,6 +68,7 @@ const TransactionsPage = () => {
               icon={<CurrencyDollarSimple size={25} />}
             />
           </div>
+          
           <div className="overflow-x-auto mt-8">
             <table className="w-full">
               <thead>
@@ -114,9 +110,9 @@ const TransactionsPage = () => {
                           e.stopPropagation();
                           handleDeleteTransactions(transactions.id);
                         }}
-                        className="px-1 py-1 mt-2 cursor-pointer w-[60px] h-[40px] flex items-center justify-center transition ease-in-out duration-150 rounded bg-yellow-200"
+                        className="px-1 py-1 mt-2 cursor-pointer w-[90px] h-[40px] flex items-center justify-center transition ease-in-out duration-150 rounded bg-amber-100"
                       >
-                        <Trash size={23} />
+                       <Trash size={23} />
                       </td>
                     </tr>
                   );

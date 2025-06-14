@@ -7,16 +7,19 @@ import TransactionsPage from "./pages/Transactions.jsx";
 import TransactionDetails from "./pages/TransactionDetails.jsx";
 import { ToastContainer } from "react-toastify";
 import { TransactionProvider } from "./contexts/TransactionContext.jsx";
+import { ThemeProvider } from "@material-tailwind/react";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HashRouter>
       <TransactionProvider>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/transactions" element={<TransactionsPage />} />
-          <Route path="/transactions/:id" element={<TransactionDetails />} />
-        </Routes>
+        <ThemeProvider>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/transactions" element={<TransactionsPage />} />
+            <Route path="/transactions/:id" element={<TransactionDetails />} />
+          </Routes>
+        </ThemeProvider>
       </TransactionProvider>
     </HashRouter>
     <ToastContainer />
