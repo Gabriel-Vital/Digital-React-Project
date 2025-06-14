@@ -18,7 +18,7 @@ const TransactionDetails = () => {
   const [category, setCategory] = useState("");
   const [transactionType, setTransactionType] = useState("");
 
-  const notify = () => toast('Wow so easy !');
+  const notify = () => toast("Wow so easy !");
 
   function handleChangeTitle(ev) {
     setTitle(ev);
@@ -36,7 +36,6 @@ const TransactionDetails = () => {
     setTransactionType(type);
   }
 
-
   async function fetchTransactionId() {
     const transaction = await axios.get(`${API_BASE_URL}/transactions/${id}`);
     setTitle(transaction.data.title);
@@ -51,19 +50,18 @@ const TransactionDetails = () => {
 
   async function handleUpdateTransaction() {
     try {
-      notify()
+      notify();
       await axios.put(`${API_BASE_URL}/transactions/${id}`, {
         title,
         price: Number(price),
         category,
         transactionType,
         date: format(new Date(), "dd/MM/yyyy"),
-      })
-      
-      navigate("/transactions")
+      });
+
+      navigate("/transactions");
     } catch (error) {
       console.error("Erro ao atualizar a transação", error);
-      
     }
   }
 
