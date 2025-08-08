@@ -1,12 +1,20 @@
 {
   "transactions": [
     {
-      "id": "b4d5",
+      "id": "66c6",
       "title": "compras",
-      "price": 300,
+      "price": 600,
+      "category": "finanças",
+      "transactionType": "withdraw",
+      "date": "07/08/2025"
+    },
+    {
+      "id": "2124",
+      "title": "Salário",
+      "price": 2000,
       "category": "finanças",
       "transactionType": "deposit",
-      "date": "14/06/2025"
+      "date": "07/08/2025"
     }
   ]
 }

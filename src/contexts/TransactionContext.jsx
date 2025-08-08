@@ -10,12 +10,11 @@ const TransactionProvider = ({ children }) => {
   const [allTransactions, setAlltransactions] = useState([]);
   async function handleDeleteTransactions(id) {
     const confirmDelete = window.confirm(
-      "Tem certeza que desaja deletar esta transação?"
+      "Tem certeza que deseja deletar esta transação?"
     );
     if (!confirmDelete) {
       return;
     }
-
     await axios.delete(`${API_BASE_URL}/transactions/${id}`);
   }
 
